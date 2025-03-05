@@ -1,0 +1,49 @@
+# version: '3'
+
+services:
+  gateway:
+    build: ./apiGateway
+    depends_on:
+      - db
+    volumes:
+      - ./:/code:ro
+    environment:
+      - DATABASE_URL=postgresql://postgres:123456789@host.docker.internal:5433/postgres
+    ports:
+      - "8003:8003"
+  creature:
+    build: ./services/creature
+    depends_on:
+      - db
+    volumes:
+      - ./:/code:ro
+    environment:
+      - DATABASE_URL=postgresql://postgres:123456789@host.docker.internal:5432/postgres
+    ports:
+      - "8001:8001"
+  explorer:
+    build: ./services/explorer
+    depends_on:
+      - db
+    volumes:
+      - ./:/code:ro
+    environment:
+      - DATABASE_URL=postgresql://postgres:123456789@host.docker.internal:5432/postgres
+    ports:
+      - "8002:8002"
+      
+  db:
+      image: postgres:15-alpine
+      restart: always
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=123456789
+        - POSTGRES_DB=postgres
+      ports:
+        - "5433:5432"
+      user: postgres
+
+volumes:
+      postgres_data:
