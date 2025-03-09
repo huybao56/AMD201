@@ -9,9 +9,6 @@ port = '5432'
 database = 'postgres'
 connection_str = f'postgresql://{user}:{password}@{host}:{port}/{database}'
 engine = create_engine(connection_str)
-# import os
-# dbUrl = os.environ['DATABASE_URL']
-# engine = create_engine(dbUrl)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
@@ -22,6 +19,3 @@ def get_db():
     finally:
         db.close()
         
-def create_tables():
-    from src.model.rider import Rider
-    Base.metadata.create_all(bind=engine)
