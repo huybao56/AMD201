@@ -37,7 +37,7 @@ def publish(topic: str,data: RiderProducer):
 
 # Kafka Consumer
 consumer = KafkaConsumer("Booking",bootstrap_servers='localhost:9092',
-                            group_id='my_consumer_group',        
+                            group_id='my_consumer_group_rider',        
                             auto_offset_reset='earliest',        # Read from beginning if no offset found
                             enable_auto_commit=True,              # Enable auto-commit (optional)
                             api_version=(0,11,5),

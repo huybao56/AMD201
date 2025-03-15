@@ -21,9 +21,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(user_router, prefix="/user", tags=["User"])
-app.include_router(rider_router, prefix="/rider", tags=["Rider"])
-app.include_router(booking_router, prefix="/booking", tags=["Booking"])
+# app.include_router(user_router, prefix="/user", tags=["User"])
+# app.include_router(rider_router, prefix="/rider", tags=["Rider"])
+# app.include_router(booking_router, prefix="/booking", tags=["Booking"])
 
 async def forward_request(service_url: str, method: str, path: str, body=None, headers=None):
     async with httpx.AsyncClient() as client:
